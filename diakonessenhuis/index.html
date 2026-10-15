@@ -204,14 +204,26 @@ var MT_BROEK = ["S","M","L","XL","2XL"];
 var ART = [
   {id:"polo", naam:"Heavy Poloshirt", kleur:"Navy", code:"Prepster 2.0 · DH544100222 · Navy", groep:"Shirts", img:"polo", maten:MT_BOVEN,
    desc:"Jullie vaste poloshirt in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst, 11 x 1,7 cm, garen wit/rood).", logos:[BORDUREN]},
+  {id:"polosweater", naam:"Polosweater", kleur:"Navy", code:"Prepster 2.0 Long Sleeve · DH544100220 · Navy", groep:"Shirts", img:"polosweater", maten:MT_BOVEN,
+   desc:"Polo met lange mouw in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst).", logos:[BORDUREN]},
   {id:"tshirt", naam:"Green T-shirt", kleur:"Navy", code:"Creator 2.0 · DH544131159 · Navy", groep:"Shirts", img:"tshirt", maten:MT_BOVEN,
    desc:"T-shirt in Navy, geborduurd met het Diakonessenhuis-logo (rechterborst, 11 x 1,7 cm, garen wit/rood).", logos:[BORDUREN]},
-  {id:"fleece", naam:"Fleecejack", kleur:"Navy", code:"Stanley Guider · DH544117872 · Navy · Heren", groep:"Jassen", img:"fleece", maten:MT_BOVEN,
+  {id:"sweater", naam:"Sweater", kleur:"Navy", code:"Roller · DH544131158 · Navy", groep:"Shirts", img:"sweater-roller", maten:MT_BOVEN,
+   desc:"Ronde-hals sweater in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst).", logos:[BORDUREN]},
+  {id:"fleece", naam:"Fleecejack Heren", kleur:"Navy", code:"Stanley Guider · DH544117872 · Navy · Heren", groep:"Jassen", img:"fleece", maten:MT_BOVEN,
    desc:"Fleecejack in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst, 11 x 1,7 cm, garen wit/rood).", logos:[BORDUREN]},
-  {id:"softshell", naam:"Softshell Jacket Winter", kleur:"Navy", code:"Softshell Stretch Winterjack 1421 GSW · Navy", groep:"Jassen", img:"softshell", maten:MT_BOVEN,
+  {id:"fleecedames", naam:"Fleecejack Dames", kleur:"Navy", code:"Stella Guider · DH544119011 · Navy · Dames", groep:"Jassen", img:"fleece-dames", maten:MT_BOVEN,
+   desc:"Damesfleecejack in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst).", logos:[BORDUREN]},
+  {id:"fleeceshell", naam:"Fleece Shell Vest", kleur:"Navy", code:"Trekker · DH544T9603 · Navy · Unisex", groep:"Jassen", img:"fleece-shell", maten:MT_BOVEN,
+   desc:"Unisex fleece shell vest in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst).", logos:[BORDUREN]},
+  {id:"softshellplain", naam:"Softshell Jacket", kleur:"Navy", code:"Softshelljack 1414 SHI · DH586124149 · Navy", groep:"Jassen", img:"softshell-jacket", maten:MT_BOVEN,
+   desc:"Winddicht softshelljack met afneembare capuchon in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst).", logos:[BORDUREN]},
+  {id:"softshell", naam:"Softshell Jacket Winter", kleur:"Navy", code:"Softshell Stretch Winterjack 1421 GSW · DH544119008 · Navy", groep:"Jassen", img:"softshell-winter", maten:MT_BOVEN,
    desc:"Gevoerde winter-softshell in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst).", logos:[BORDUREN]},
-  {id:"broek", naam:"Servicebroek Stretch", kleur:"Zwart", code:"Servicebroek Stretch 2700 PLW · Zwart · Heren Regular", groep:"Broeken", img:"broek", maten:MT_BROEK,
-   desc:"Stretch servicebroek in zwart, heren regular fit, geborduurd met het Diakonessenhuis-logo (linkerachterzak).", logos:[BORDUREN]}
+  {id:"broek", naam:"Servicebroek Stretch", kleur:"Zwart", code:"Servicebroek Stretch 2700 PLW · DH940126515 · Zwart · Heren Regular", groep:"Broeken", img:"broek", maten:MT_BROEK,
+   desc:"Stretch servicebroek in zwart, heren regular fit, geborduurd met het Diakonessenhuis-logo (linkerachterzak).", logos:[BORDUREN]},
+  {id:"broekdenim", naam:"Servicebroek Denim", kleur:"Blauw", code:"Denim Stretchbroek 2623 DCS · DH545131161 · Blauw", groep:"Broeken", img:"servicebroek-denim", maten:MT_BROEK,
+   desc:"5-pocket servicejeans van CORDURA-denimstretch, geborduurd met het Diakonessenhuis-logo (linkerachterzak).", logos:[BORDUREN]}
 ];
 var BY = {}; ART.forEach(function(a){ BY[a.id] = a; });
 
@@ -288,7 +300,7 @@ function setView(v){
 
 function renderCollectie(){
   $main.innerHTML =
-    '<div class="head"><div><h1>Jullie collectie</h1><p>De poloshirts, T-shirts, jassen en broek die jullie steeds bestellen, met het logo erop. Kies een artikel, vul per maat het aantal in en zet het op je bestellijst.</p></div></div>' +
+    '<div class="head"><div><h1>Jullie collectie</h1><p>Het volledige assortiment: shirts, sweaters, jassen en broeken, allemaal met jullie logo erop. Kies een artikel, vul per maat het aantal in en zet het op je bestellijst.</p></div></div>' +
     '<div class="grid">' + ART.map(function(a){
       return '<button class="card" data-id="'+a.id+'"><div class="ph"><img src="img/'+a.img+'.jpg" alt="'+esc(full(a))+'" loading="lazy"></div>' +
         '<div class="body"><div class="name">'+esc(a.naam)+'</div><div class="code">'+esc(a.code)+'</div>' +
