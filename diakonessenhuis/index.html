@@ -1,0 +1,514 @@
+<title>Kledingportaal voor Diakonessenhuis Utrecht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap">
+<style>
+  :root{
+    --bg:#EEF1F7; --surface:#FFFFFF; --surface-2:#F4F6FB;
+    --ink:#1A2340; --muted:#5A6478; --line:rgba(26,35,64,.13); --line-soft:rgba(26,35,64,.07);
+    --eco:#264A95; --eco-ink:#FFFFFF; --lime:#1E3A7A; --lime-tint:#E4E9F6; --lime-ink:#264A95;
+    --sun:#EF3146; --sun-ink:#FFFFFF;
+    --warn:#8A5A0B; --warn-tint:#FBEED3; --good:#2F6B2F; --good-tint:#DFF0DA;
+    --navy:#264A95;
+    --shadow:0 1px 2px rgba(26,35,64,.06), 0 10px 30px -16px rgba(26,35,64,.25);
+    --display:'Poppins','Segoe UI',system-ui,sans-serif;
+    --body:'Poppins','Segoe UI',system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10131F; --surface:#161B2C; --surface-2:#1C2236;
+      --ink:#E7EAF5; --muted:#A3ABC2; --line:rgba(255,255,255,.13); --line-soft:rgba(255,255,255,.07);
+      --eco:#4A6CC0; --eco-ink:#FFFFFF; --lime:#9FB4EA; --lime-tint:#232B47; --lime-ink:#BBCBF4;
+      --sun:#FF5C6E; --sun-ink:#2A0A0E;
+      --warn:#E7B45E; --warn-tint:#33270F; --good:#8ACB86; --good-tint:#1A2E1A;
+      --navy:#4A6CC0;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -16px rgba(0,0,0,.7);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10131F; --surface:#161B2C; --surface-2:#1C2236;
+    --ink:#E7EAF5; --muted:#A3ABC2; --line:rgba(255,255,255,.13); --line-soft:rgba(255,255,255,.07);
+    --eco:#4A6CC0; --eco-ink:#FFFFFF; --lime:#9FB4EA; --lime-tint:#232B47; --lime-ink:#BBCBF4;
+    --sun:#FF5C6E; --sun-ink:#2A0A0E;
+    --warn:#E7B45E; --warn-tint:#33270F; --good:#8ACB86; --good-tint:#1A2E1A;
+    --navy:#4A6CC0;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -16px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+  button,input,select,textarea{font:inherit;color:inherit}
+  h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.15}
+  .wrap{max-width:1180px;margin:0 auto;padding-inline:16px}
+
+  .top{background:var(--eco);color:var(--eco-ink)}
+  .top .wrap{display:flex;align-items:center;gap:16px;padding-block:14px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:12px;min-width:0}
+  .brand .eco-logo{background:#fff;border-radius:10px;padding:5px 10px;height:40px;display:flex;align-items:center}
+  .brand .eco-logo img{height:28px;width:auto;display:block}
+  .brand .x{opacity:.6;font-size:13px}
+  .client-mark{width:40px;height:40px;border-radius:10px;display:flex!important;align-items:center;justify-content:center;background:#fff;padding:5px}
+  .client-mark img{width:100%;height:100%;object-fit:contain}
+  .brand-title{display:flex;flex-direction:column;min-width:0}
+  .brand-title b{font-family:var(--display);font-style:italic;font-weight:700;font-size:19px;letter-spacing:.01em}
+  .brand-title span{font-size:12.5px;opacity:.75}
+
+  .demo-note{background:var(--sun);color:var(--sun-ink);font-size:13px;font-weight:600;padding:10px 16px}
+  .demo-note .wrap{padding-block:10px}
+
+  .tabs{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+  .tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:8px}
+  .tab{border:none;background:none;padding:9px 14px;border-radius:10px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:8px}
+  .tab:hover{background:var(--surface-2)}
+  .tab[aria-selected="true"]{background:var(--lime-tint);color:var(--lime-ink)}
+  .tab:focus-visible,.btn:focus-visible,.card:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+  .count{background:var(--eco);color:var(--eco-ink);border-radius:99px;font-size:12px;padding:3px 9px;min-width:22px;text-align:center}
+  :root[data-theme="dark"] .count{background:var(--lime);color:#10200a}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .count{background:var(--lime);color:#10200a}}
+
+  main{padding-block:24px 48px}
+  .head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .head h1{font-size:26px;font-style:italic;font-weight:700;color:var(--lime-ink)}
+  .head p{margin:4px 0 0;color:var(--muted);max-width:62ch}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+  .card{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;cursor:pointer;text-align:left;padding:0;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+  .card:hover{border-color:var(--line)}
+  .card .ph{background:#fff;aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;padding:10px;max-width:100%}
+  .card .ph img{max-height:100%;max-width:100%;object-fit:contain}
+  .card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .card .name{font-family:var(--display);font-weight:700;font-style:italic;font-size:15.5px}
+  .code{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+  .tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:99px;background:var(--surface-2);color:var(--muted)}
+
+  .btn{border:none;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+  .btn-main{background:var(--sun);color:var(--sun-ink)}
+  .btn-main:hover{filter:brightness(.96)}
+  .btn-eco{background:var(--eco);color:var(--eco-ink)}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{background:var(--surface-2)}
+  .btn-small{padding:7px 12px;font-size:13px}
+
+  .overlay{position:fixed;inset:0;background:rgba(10,20,14,.55);z-index:20;display:flex;justify-content:flex-end}
+  .overlay[hidden]{display:none!important}
+  .panel{background:var(--surface);width:min(760px,100%);height:100%;overflow-y:auto;padding:22px 22px calc(28px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:18px}
+  .panel-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .panel-head h2{font-size:24px;font-style:italic;font-weight:700}
+  .close{border:1px solid var(--line);background:var(--surface);border-radius:99px;width:36px;height:36px;cursor:pointer;flex:none;font-size:18px;line-height:1}
+  .shot{background:#fff;border-radius:12px;border:1px solid var(--line-soft);padding:12px;display:flex;justify-content:center}
+  .shot img{max-height:320px;object-fit:contain}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:640px){.two{grid-template-columns:1fr}}
+  .spec{border:1px solid var(--line-soft);border-radius:12px;padding:12px 14px;background:var(--surface-2);min-width:0}
+  .spec h3{font-size:14px;margin-bottom:6px;font-family:var(--body);font-weight:700}
+  .spec dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:13.5px}
+  .spec dt{color:var(--muted)}
+  .spec dd{margin:0}
+  .desc{color:var(--muted);margin:0;max-width:65ch}
+  .label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+  .sizes{display:flex;flex-direction:column;gap:10px}
+  .size-row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end}
+  .cell{display:flex;flex-direction:column;align-items:center;gap:4px;width:56px}
+  .cell label{font-size:12px;font-weight:700;color:var(--muted)}
+  .cell input{width:100%;text-align:center;border:1px solid var(--line);border-radius:8px;padding:7px 6px;background:var(--surface);font-weight:600;font-variant-numeric:tabular-nums}
+  .cell input:focus{outline:2px solid var(--lime);outline-offset:1px}
+  .sum{font-size:13px;color:var(--muted)}
+  .sum b{color:var(--ink)}
+
+  .list{display:flex;flex-direction:column;gap:12px}
+  .row{background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
+  .row-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+  .row-title{font-weight:700}
+  .row-sub{font-size:13px;color:var(--muted)}
+  .lines{display:flex;flex-direction:column;gap:6px;font-size:14px}
+  .line{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:start;padding-top:6px;border-top:1px solid var(--line-soft)}
+  .line img{width:48px;height:48px;object-fit:contain;background:#fff;border-radius:8px;border:1px solid var(--line-soft)}
+  .line .nm{font-weight:600}
+  .line .sz{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .line .qty{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px;white-space:nowrap}
+  .pill::before{content:"";width:6px;height:6px;border-radius:99px;background:currentColor}
+  .pill.done{background:var(--good-tint);color:var(--good)}
+  .pill.open{background:var(--warn-tint);color:var(--warn)}
+  .empty{border:1px dashed var(--line);border-radius:14px;padding:28px;text-align:center;color:var(--muted);background:var(--surface)}
+
+  .form{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .field{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .field label{font-size:13px;font-weight:600;color:var(--muted)}
+  .field input,.field select,.field textarea{border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:var(--surface);min-width:0}
+  .field textarea{min-height:70px;resize:vertical}
+  .field.wide{grid-column:1/-1}
+
+  /* medewerkers / linnendienst */
+  .table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;box-shadow:var(--shadow)}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:720px}
+  th{text-align:left;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:12px 14px;border-bottom:1px solid var(--line)}
+  td{padding:12px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td .sz{font-variant-numeric:tabular-nums}
+  .kit{display:flex;flex-wrap:wrap;gap:4px}
+  .kit span{font-size:12px;background:var(--surface-2);border-radius:6px;padding:4px 8px}
+  .kit span.back{background:var(--warn-tint);color:var(--warn);text-decoration:line-through}
+  .reasons{display:flex;flex-direction:column;gap:8px}
+  .reason{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer}
+  .reason input{accent-color:var(--lime)}
+  .check{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line-soft);padding-top:8px}
+  .check input{width:18px;height:18px;accent-color:var(--lime)}
+
+  .ok{display:flex;flex-direction:column;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--line-soft);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+  .ok h2{font-size:22px;font-style:italic;font-weight:700}
+  .foot{color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:36px;padding-top:14px;max-width:80ch}
+
+  .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--eco);color:var(--eco-ink);padding:10px 18px;border-radius:99px;font-size:14px;font-weight:600;box-shadow:var(--shadow);z-index:30;max-width:90vw;text-align:center}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+  @media (max-width:560px){.head h1{font-size:22px}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="eco-logo"><img src="img/ecowear.png" alt="EcoWear"></span>
+      <span class="x">voor</span>
+      <span class="client-mark"><img src="img/logo-icoon.png" alt="Diakonessenhuis"></span>
+      <div class="brand-title"><b>Kledingportaal</b><span>Diakonessenhuis Utrecht</span></div>
+    </div>
+  </div>
+</header>
+<div class="demo-note"><div class="wrap">Demo, nog geen systeem. De collectie, de foto's en de bestellingen hieronder zijn echt (uit jullie eigen digitale proeven en orders bij EcoWear). "Wie heeft wat" is nog een idee, met voorbeeldmedewerkers. Niets wordt verstuurd.</div></div>
+
+<nav class="tabs" aria-label="Onderdelen">
+  <div class="wrap" role="tablist">
+    <button class="tab" role="tab" id="t-collectie" data-view="collectie">Collectie</button>
+    <button class="tab" role="tab" id="t-bestellijst" data-view="bestellijst">Bestellijst <span class="count" id="cartCount">0</span></button>
+    <button class="tab" role="tab" id="t-bestellingen" data-view="bestellingen">Eerdere bestellingen</button>
+    <button class="tab" role="tab" id="t-medewerkers" data-view="medewerkers">Wie heeft wat</button>
+  </div>
+</nav>
+
+<main class="wrap" id="main"></main>
+<div class="wrap"><p class="foot">Dit is een voorproefje, geen aankondiging: we bouwen aan een kledingportaal en zoeken een paar klanten die meedenken voor het af is. De collectie en de bestellingen hierboven zijn echt (jullie eigen artikelen en orders bij EcoWear); er wordt in dit portaal nog niets echt besteld en er staan bewust geen prijzen in. Een bestelling blijft net als nu een aanvraag, de prijs volgt via een offerte. "Wie heeft wat" laat zien hoe we per afdeling of medewerker kunnen bijhouden wat iemand heeft, zodat een bestelling nooit meer bij de verkeerde afdeling terechtkomt.</p></div>
+
+<div class="overlay" id="overlay" hidden><div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="panelTitle"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+"use strict";
+
+var BORDUREN = {naam:"Borduren", formaat:"logo op maat", positie:"linker borst", materiaal:"borduren, per kleur en positie instelkosten"};
+var MT_BOVEN = ["S","M","L","XL","2XL","3XL"];
+var MT_BROEK = ["S","M","L","XL","2XL"];
+var ART = [
+  {id:"polo", naam:"Heavy Poloshirt", kleur:"Navy", code:"Prepster 2.0 · DH544100222 · Navy", groep:"Shirts", img:"polo", maten:MT_BOVEN,
+   desc:"Jullie vaste poloshirt in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst, 11 x 1,7 cm, garen wit/rood).", logos:[BORDUREN]},
+  {id:"tshirt", naam:"Green T-shirt", kleur:"Navy", code:"Creator 2.0 · DH544131159 · Navy", groep:"Shirts", img:"tshirt", maten:MT_BOVEN,
+   desc:"T-shirt in Navy, geborduurd met het Diakonessenhuis-logo (rechterborst, 11 x 1,7 cm, garen wit/rood).", logos:[BORDUREN]},
+  {id:"fleece", naam:"Fleecejack", kleur:"Navy", code:"Stanley Guider · DH544117872 · Navy · Heren", groep:"Jassen", img:"fleece", maten:MT_BOVEN,
+   desc:"Fleecejack in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst, 11 x 1,7 cm, garen wit/rood).", logos:[BORDUREN]},
+  {id:"softshell", naam:"Softshell Jacket Winter", kleur:"Navy", code:"Softshell Stretch Winterjack 1421 GSW · Navy", groep:"Jassen", img:"softshell", maten:MT_BOVEN,
+   desc:"Gevoerde winter-softshell in Navy, geborduurd met het Diakonessenhuis-logo (linkerborst).", logos:[BORDUREN]},
+  {id:"broek", naam:"Servicebroek Stretch", kleur:"Zwart", code:"Servicebroek Stretch 2700 PLW · Zwart · Heren Regular", groep:"Broeken", img:"broek", maten:MT_BROEK,
+   desc:"Stretch servicebroek in zwart, heren regular fit, geborduurd met het Diakonessenhuis-logo (linkerachterzak).", logos:[BORDUREN]}
+];
+var BY = {}; ART.forEach(function(a){ BY[a.id] = a; });
+
+/* Echte orders uit Moneybird (2026-0471, 2026-0617, 2026-0618, 2026-0620, 2026-0643), met de maatverdeling zoals besteld. */
+var ORDERS = [
+  {nr:"2026-0643", datum:"1 okt 2026", titel:"Servicebroek Stretch zwart", regels:[
+    {id:"broek", m:{S:5,M:10,L:10}}
+  ]},
+  {nr:"2026-0620", datum:"21 sep 2026", titel:"Heavy Poloshirt Navy", regels:[
+    {id:"polo", m:{S:5,L:15}}
+  ]},
+  {nr:"2026-0618", datum:"18 sep 2026", titel:"Fleecejack en Softshell Navy", regels:[
+    {id:"fleece", m:{L:5}},
+    {id:"softshell", m:{M:4,L:4}}
+  ]},
+  {nr:"2026-0617", datum:"18 sep 2026", titel:"Green T-shirt en Heavy Poloshirt Navy", regels:[
+    {id:"tshirt", m:{S:15,M:20,L:10}},
+    {id:"polo", m:{M:10,L:10,XL:5,"2XL":5}}
+  ]},
+  {nr:"2026-0471", datum:"16 jul 2026", titel:"Softshell, T-shirt en Polo Navy", regels:[
+    {id:"softshell", m:{M:1,XL:2,"3XL":1}},
+    {id:"tshirt", m:{S:10,M:10,L:10,XL:10}},
+    {id:"polo", m:{S:10,L:10}}
+  ]}
+];
+
+/* Voorbeeldmedewerkers: verzonnen namen, om te laten zien hoe "wie heeft wat" per afdeling werkt.
+   De Linnendienst bestelt centraal, maar per afdeling/medewerker apart: mengen van afdelingen is
+   precies waar het eerder misging (aparte levering nodig per afdeling), dus dit overzicht houdt
+   iedereen uit elkaar in plaats van een ongescheiden pool bij te houden. */
+var STAFF = [
+  {naam:"Voorbeeld: R. de Boer", afdeling:"Trombosedienst", maat:{boven:"M", onder:"M"}, kit:[{id:"polo",n:2},{id:"tshirt",n:3}]},
+  {naam:"Voorbeeld: S. Jansen", afdeling:"Linnendienst", maat:{boven:"L", onder:"L"}, kit:[{id:"polo",n:3},{id:"fleece",n:1},{id:"broek",n:2}]},
+  {naam:"Voorbeeld: M. Visser", afdeling:"Facilitair", maat:{boven:"XL", onder:"XL"}, kit:[{id:"softshell",n:1},{id:"polo",n:2},{id:"broek",n:1}]},
+  {naam:"Voorbeeld: K. Bakker", afdeling:"Trombosedienst", maat:{boven:"S", onder:"S"}, kit:[{id:"tshirt",n:2},{id:"polo",n:1}]}
+];
+var REDENEN = ["Uit dienst","Versleten","Kapot of defect","Andere maat nodig"];
+
+var state = {view:"collectie", cart:[], sent:null, nextNr:1};
+
+var $main = document.getElementById("main");
+var $overlay = document.getElementById("overlay");
+var $panel = document.getElementById("panel");
+var $toast = document.getElementById("toast");
+
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function full(a){ return a.naam + " " + a.kleur; }
+function sumSizes(m){ var t=0; for (var k in m) t += m[k]||0; return t; }
+function sizeTxt(m, a){
+  var order = a ? a.maten : Object.keys(m);
+  return order.filter(function(s){ return m[s]; }).map(function(s){ return s+" "+m[s]; }).join(" · ");
+}
+function toast(msg){
+  $toast.textContent = msg; $toast.hidden = false;
+  clearTimeout(toast.t); toast.t = setTimeout(function(){ $toast.hidden = true; }, 2600);
+}
+function cartTotal(){ return state.cart.reduce(function(t,c){ return t + sumSizes(c.m); },0); }
+function updateCount(){ document.getElementById("cartCount").textContent = cartTotal(); }
+
+function addToCart(id, m, bron){
+  if (!sumSizes(m)) return false;
+  var hit = state.cart.filter(function(c){ return c.id === id; })[0];
+  if (hit){ for (var k in m){ hit.m[k] = (hit.m[k]||0) + m[k]; } }
+  else state.cart.push({id:id, m:JSON.parse(JSON.stringify(m)), bron:bron||""});
+  updateCount(); return true;
+}
+
+function setView(v){
+  state.view = v; state.sent = v === "bestellijst" ? state.sent : null;
+  var tabs = document.querySelectorAll(".tab");
+  for (var i=0;i<tabs.length;i++) tabs[i].setAttribute("aria-selected", tabs[i].dataset.view === v ? "true" : "false");
+  render(); window.scrollTo(0,0);
+}
+
+function renderCollectie(){
+  $main.innerHTML =
+    '<div class="head"><div><h1>Jullie collectie</h1><p>De poloshirts, T-shirts, jassen en broek die jullie steeds bestellen, met het logo erop. Kies een artikel, vul per maat het aantal in en zet het op je bestellijst.</p></div></div>' +
+    '<div class="grid">' + ART.map(function(a){
+      return '<button class="card" data-id="'+a.id+'"><div class="ph"><img src="img/'+a.img+'.jpg" alt="'+esc(full(a))+'" loading="lazy"></div>' +
+        '<div class="body"><div class="name">'+esc(a.naam)+'</div><div class="code">'+esc(a.code)+'</div>' +
+        '<div class="tags"><span class="tag">'+esc(a.groep)+'</span></div></div></button>';
+    }).join("") + '</div>';
+  each(".card", function(b){ b.onclick = function(){ openArticle(b.dataset.id); }; });
+}
+
+function sizeGrid(a, preset, key){
+  key = key || a.id;
+  return '<div class="sizes"><div class="size-row">' + a.maten.map(function(s){
+    var v = preset && preset[s] ? preset[s] : "";
+    return '<div class="cell"><label for="q-'+key+'-'+s+'">'+esc(s)+'</label><input id="q-'+key+'-'+s+'" type="number" min="0" inputmode="numeric" data-size="'+esc(s)+'" value="'+v+'" placeholder="0"></div>';
+  }).join("") + '</div><div class="sum" id="sum-'+key+'">Totaal <b>0</b> stuks</div></div>';
+}
+function readGrid(scope){
+  var m = {}; var ins = scope.querySelectorAll("input[data-size]");
+  for (var i=0;i<ins.length;i++){ var n = parseInt(ins[i].value,10); if (n>0) m[ins[i].dataset.size] = n; }
+  return m;
+}
+function wireSum(scope, a, key){
+  key = key || a.id;
+  var upd = function(){ document.getElementById("sum-"+key).innerHTML = 'Totaal <b>'+sumSizes(readGrid(scope))+'</b> stuks'; };
+  var ins = scope.querySelectorAll("input[data-size]");
+  for (var i=0;i<ins.length;i++) ins[i].oninput = upd;
+  upd();
+}
+
+function lastOrdered(id){
+  for (var i=0;i<ORDERS.length;i++){
+    var o = ORDERS[i];
+    for (var j=0;j<o.regels.length;j++){ var r = o.regels[j]; if (r.id === id && r.m) return {o:o, r:r}; }
+  }
+  return null;
+}
+
+function openArticle(id){
+  var a = BY[id]; var last = lastOrdered(id);
+  $panel.innerHTML =
+    '<div class="panel-head"><div><div class="label">'+esc(a.groep)+'</div><h2 id="panelTitle">'+esc(a.naam)+'</h2><div class="code">'+esc(a.code)+'</div></div><button class="close" id="closeP" aria-label="Sluiten">×</button></div>' +
+    '<div class="shot"><img src="img/'+a.img+'.jpg" alt="'+esc(full(a))+'"></div>' +
+    '<p class="desc">'+esc(a.desc)+'</p>' +
+    (a.logos.length ? '<div><div class="label" style="margin-bottom:8px">Logo en plaatsing</div><div class="two">' + a.logos.map(function(l){
+      return '<div class="spec"><h3>'+esc(l.naam)+'</h3><dl><dt>Formaat</dt><dd>'+esc(l.formaat)+'</dd><dt>Positie</dt><dd>'+esc(l.positie)+'</dd><dt>Uitvoering</dt><dd>'+esc(l.materiaal)+'</dd></dl></div>';
+    }).join("") + '</div></div>' : '') +
+    '<div><div class="label" style="margin-bottom:8px">Aantal per maat</div>' + sizeGrid(a) +
+    (last ? '<p class="sum" style="margin-top:8px">Vorige keer ('+esc(last.o.nr)+', '+esc(last.o.datum)+'): '+esc(sizeTxt(last.r.m,a))+'. <button class="btn btn-ghost btn-small" id="useLast">Neem deze verdeling over</button></p>' : '') +
+    '</div>' +
+    '<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-main" id="addBtn">Op bestellijst zetten</button></div>';
+  $overlay.hidden = false;
+  wireSum($panel, a);
+  document.getElementById("closeP").onclick = closePanel;
+  var ul = document.getElementById("useLast");
+  if (ul) ul.onclick = function(){
+    a.maten.forEach(function(s){ var el = document.getElementById("q-"+a.id+"-"+s); if (el) el.value = last.r.m[s] || ""; });
+    wireSum($panel, a);
+  };
+  document.getElementById("addBtn").onclick = function(){
+    var m = readGrid($panel);
+    if (!addToCart(a.id, m)){ toast("Vul bij minstens een maat een aantal in"); return; }
+    closePanel(); toast(sumSizes(m) + " stuks " + full(a) + " op je bestellijst");
+  };
+  document.getElementById("closeP").focus();
+}
+function closePanel(){ $overlay.hidden = true; $panel.innerHTML = ""; }
+$overlay.addEventListener("click", function(e){ if (e.target === $overlay) closePanel(); });
+document.addEventListener("keydown", function(e){ if (e.key === "Escape" && !$overlay.hidden) closePanel(); });
+
+function renderBestellijst(){
+  if (state.sent){
+    $main.innerHTML = '<div class="ok"><span class="pill done">Aanvraag verstuurd</span><h2>Aanvraag '+esc(state.sent.nr)+' is binnen bij EcoWear</h2>' +
+      '<p class="desc">'+state.sent.totaal+' stuks in '+state.sent.regels+' artikelen. We sturen er een offerte voor, zoals altijd; in het echte portaal verandert dat niet.</p>' +
+      '<button class="btn btn-eco" id="toOrders">Naar eerdere bestellingen</button></div>';
+    document.getElementById("toOrders").onclick = function(){ setView("bestellingen"); };
+    return;
+  }
+  if (!state.cart.length){
+    $main.innerHTML = '<div class="head"><div><h1>Bestellijst</h1></div></div><div class="empty">Je bestellijst is leeg. Kies artikelen in de <button class="btn btn-ghost btn-small" id="toCol">Collectie</button> of bestel een eerdere order opnieuw.</div>';
+    document.getElementById("toCol").onclick = function(){ setView("collectie"); };
+    return;
+  }
+  $main.innerHTML =
+    '<div class="head"><div><h1>Bestellijst</h1><p>Controleer de aantallen per maat. Borduren gaat zoals vastgelegd in jullie collectie.</p></div><div class="sum">Totaal <b>'+cartTotal()+'</b> stuks</div></div>' +
+    '<div class="list">' + state.cart.map(function(c,i){
+      var a = BY[c.id];
+      return '<div class="row" data-i="'+i+'"><div class="line" style="border-top:none;padding-top:0"><img src="img/'+a.img+'.jpg" alt=""><div><div class="nm">'+esc(full(a))+'</div><div class="sz">'+esc(a.code)+(c.bron?' · '+esc(c.bron):'')+'</div></div><button class="btn btn-ghost btn-small" data-del="'+i+'">Verwijderen</button></div>' + sizeGrid(a, c.m, "c"+i) + '</div>';
+    }).join("") + '</div>' +
+    '<h2 style="font-size:18px;margin:26px 0 12px">Levering</h2>' +
+    '<form class="form" id="orderForm">' +
+      '<div class="field"><label for="fRef">Jullie inkoopordernummer</label><input id="fRef" type="text" placeholder="Bijvoorbeeld 26015351"></div>' +
+      '<div class="field"><label for="fDate">Gewenste leverdatum</label><input id="fDate" type="date"></div>' +
+      '<div class="field wide"><label for="fNote">Opmerking</label><textarea id="fNote" placeholder="Bijvoorbeeld: graag per afdeling apart verpakt"></textarea></div>' +
+      '<div class="field wide"><button class="btn btn-main" type="submit">Aanvraag versturen</button></div>' +
+    '</form>';
+  state.cart.forEach(function(c,i){
+    var row = $main.querySelector('.row[data-i="'+i+'"]'); var a = BY[c.id];
+    wireSum(row, a, "c"+i);
+    var ins = row.querySelectorAll("input[data-size]");
+    for (var k=0;k<ins.length;k++) ins[k].addEventListener("input", function(){ c.m = readGrid(row); updateCount(); });
+  });
+  each("[data-del]", function(b){ b.onclick = function(){ state.cart.splice(+b.dataset.del,1); updateCount(); render(); }; });
+  document.getElementById("orderForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    state.cart = state.cart.filter(function(c){ return sumSizes(c.m) > 0; });
+    if (!state.cart.length){ toast("Er staan geen aantallen op je bestellijst"); render(); return; }
+    var nr = "WEB-" + String(state.nextNr++).padStart(3,"0");
+    var tot = cartTotal();
+    ORDERS.unshift({nr:nr, datum:"vandaag", titel:document.getElementById("fRef").value || "Aanvraag via het portaal", nieuw:true,
+      regels:state.cart.map(function(c){ return {id:c.id, m:c.m}; })});
+    state.sent = {nr:nr, totaal:tot, regels:state.cart.length};
+    state.cart = []; updateCount(); render(); window.scrollTo(0,0);
+  });
+}
+
+function renderBestellingen(){
+  $main.innerHTML =
+    '<div class="head"><div><h1>Eerdere bestellingen</h1><p>Wat jullie eerder bestelden, met de maatverdeling. Met een klik zet je dezelfde artikelen en aantallen op je bestellijst en pas je ze daar aan.</p></div></div>' +
+    '<div class="list">' + ORDERS.map(function(o,i){
+      var tot = o.regels.reduce(function(t,r){ return t + sumSizes(r.m); },0);
+      return '<div class="row"><div class="row-top"><div><div class="row-title">'+esc(o.titel)+'</div><div class="row-sub">'+esc(o.nr)+' · '+esc(o.datum)+' · '+tot+' stuks</div></div>' +
+        '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">'+(o.nieuw?'<span class="pill open">Ontvangen</span>':'<span class="pill done">Afgerond</span>')+
+        '<button class="btn btn-main btn-small" data-re="'+i+'">Opnieuw bestellen</button></div></div>' +
+        '<div class="lines">' + o.regels.map(function(r){
+          var a = BY[r.id];
+          return '<div class="line"><img src="img/'+a.img+'.jpg" alt=""><div><div class="nm">'+esc(full(a))+'</div><div class="sz">'+esc(sizeTxt(r.m,a))+'</div></div><div class="qty">'+sumSizes(r.m)+'×</div></div>';
+        }).join("") + '</div></div>';
+    }).join("") + '</div>';
+  each("[data-re]", function(b){ b.onclick = function(){
+    var o = ORDERS[+b.dataset.re]; var n = 0;
+    o.regels.forEach(function(r){ if (addToCart(r.id, r.m, "zoals "+o.nr)) n++; });
+    toast(n + (n===1?" artikel":" artikelen") + " uit " + o.nr + " op je bestellijst. Pas de aantallen daar aan.");
+    setView("bestellijst");
+  }; });
+}
+
+/* ---------- wie heeft wat (linnendienst) ---------- */
+function renderMedewerkers(){
+  $main.innerHTML =
+    '<div class="head"><div><h1>Wie heeft wat</h1><p>Per medewerker en afdeling de maat en de kleding die hij of zij heeft. Bestel bij voor iemand in de juiste maat, of lever kleding in bij uit dienst of een andere maat. Dit houdt afdelingen apart, zodat een bestelling nooit meer bij de verkeerde afdeling terechtkomt. Dit zijn voorbeeldmedewerkers, geen echte namen.</p></div></div>' +
+    '<div class="table-wrap"><table><thead><tr><th>Medewerker</th><th>Afdeling</th><th>Maat boven</th><th>Maat onder</th><th>In bezit</th><th></th></tr></thead><tbody>' +
+    STAFF.map(function(p,i){
+      return '<tr><td><b>'+esc(p.naam)+'</b></td><td>'+esc(p.afdeling)+'</td><td class="sz">'+esc(p.maat.boven)+'</td><td class="sz">'+esc(p.maat.onder)+'</td>' +
+        '<td><div class="kit">'+p.kit.map(function(k){ return '<span'+(k.n<=0?' class="back"':'')+'>'+Math.max(k.n,0)+'× '+esc(full(BY[k.id]))+'</span>'; }).join("")+'</div></td>' +
+        '<td><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn btn-main btn-small" data-buy="'+i+'">Bijbestellen</button><button class="btn btn-ghost btn-small" data-ret="'+i+'">Inleveren</button></div></td></tr>';
+    }).join("") + '</tbody></table></div>';
+  each("[data-buy]", function(b){ b.onclick = function(){ openBuyFor(+b.dataset.buy); }; });
+  each("[data-ret]", function(b){ b.onclick = function(){ openReturn(+b.dataset.ret); }; });
+}
+
+function sizeFor(p, a){
+  var s = a.groep === "Broeken" ? p.maat.onder : p.maat.boven;
+  return a.maten.indexOf(s) >= 0 ? s : a.maten[0];
+}
+function openBuyFor(i){
+  var p = STAFF[i];
+  $panel.innerHTML =
+    '<div class="panel-head"><div><div class="label">Bijbestellen voor</div><h2 id="panelTitle">'+esc(p.naam)+'</h2><div class="code">'+esc(p.afdeling)+' · boven '+esc(p.maat.boven)+' · onder '+esc(p.maat.onder)+'</div></div><button class="close" id="closeP" aria-label="Sluiten">×</button></div>' +
+    '<p class="desc">De maat staat al goed. Vink aan wat nodig is en pas zo nodig het aantal aan.</p>' +
+    '<div class="list">' + ART.map(function(a){
+      return '<label class="check"><input type="checkbox" data-a="'+a.id+'"><img src="img/'+a.img+'.jpg" alt="" style="width:36px;height:36px;object-fit:contain;background:#fff;border-radius:8px"><span style="flex:1;min-width:0"><b>'+esc(full(a))+'</b><br><span class="code">maat '+esc(sizeFor(p,a))+'</span></span><input type="number" min="1" value="1" aria-label="Aantal '+esc(a.naam)+'" data-n="'+a.id+'" style="width:64px;border:1px solid var(--line);border-radius:8px;padding:8px 6px;text-align:center;background:var(--surface)"></label>';
+    }).join("") + '</div>' +
+    '<div><button class="btn btn-main" id="buyBtn">Op bestellijst zetten</button></div>';
+  $overlay.hidden = false;
+  document.getElementById("closeP").onclick = closePanel;
+  document.getElementById("buyBtn").onclick = function(){
+    var n = 0;
+    each('#panel input[type="checkbox"]', function(cb){
+      if (!cb.checked) return;
+      var a = BY[cb.dataset.a]; var q = parseInt($panel.querySelector('[data-n="'+a.id+'"]').value,10) || 1;
+      var m = {}; m[sizeFor(p,a)] = q;
+      addToCart(a.id, m, "voor " + p.naam.replace("Voorbeeld: ","") + " · " + p.afdeling); n += q;
+    });
+    if (!n){ toast("Vink minstens een artikel aan"); return; }
+    closePanel(); toast(n + " stuks voor " + p.naam.replace("Voorbeeld: ","") + " op je bestellijst");
+  };
+}
+
+function openReturn(i){
+  var p = STAFF[i];
+  var kit = p.kit.filter(function(k){ return k.n > 0; });
+  $panel.innerHTML =
+    '<div class="panel-head"><div><div class="label">Inleveren</div><h2 id="panelTitle">'+esc(p.naam)+'</h2><div class="code">'+esc(p.afdeling)+'</div></div><button class="close" id="closeP" aria-label="Sluiten">×</button></div>' +
+    (kit.length ? '<p class="desc">Kies wat er terugkomt en waarom.</p>' +
+    '<div class="list">' + kit.map(function(k){
+      var a = BY[k.id];
+      return '<label class="check"><input type="checkbox" data-k="'+k.id+'"><span style="flex:1"><b>'+esc(full(a))+'</b><br><span class="code">'+k.n+' in bezit</span></span><input type="number" min="1" max="'+k.n+'" value="'+k.n+'" aria-label="Aantal inleveren '+esc(a.naam)+'" data-kn="'+k.id+'" style="width:64px;border:1px solid var(--line);border-radius:8px;padding:8px 6px;text-align:center;background:var(--surface)"></label>';
+    }).join("") + '</div>' +
+    '<div><div class="label" style="margin-bottom:8px">Reden</div><div class="reasons">' + REDENEN.map(function(r,j){
+      return '<label class="reason"><input type="radio" name="reden" value="'+esc(r)+'"'+(j===0?' checked':'')+'> '+esc(r)+'</label>';
+    }).join("") + '</div></div>' +
+    '<div><button class="btn btn-eco" id="retBtn">Inlevering vastleggen</button></div>'
+    : '<div class="empty">Deze medewerker heeft geen kleding meer in bezit.</div>');
+  $overlay.hidden = false;
+  document.getElementById("closeP").onclick = closePanel;
+  var rb = document.getElementById("retBtn");
+  if (rb) rb.onclick = function(){
+    var n = 0;
+    each('#panel input[data-k]', function(cb){
+      if (!cb.checked) return;
+      var k = p.kit.filter(function(x){ return x.id === cb.dataset.k; })[0];
+      var q = Math.min(k.n, parseInt($panel.querySelector('[data-kn="'+k.id+'"]').value,10) || 0);
+      k.n -= q; n += q;
+    });
+    if (!n){ toast("Vink minstens een artikel aan"); return; }
+    var reden = $panel.querySelector('input[name="reden"]:checked').value;
+    closePanel(); render();
+    toast(n + " stuks ingeleverd, reden: " + reden.toLowerCase());
+  };
+}
+
+function each(sel, fn){ var l = document.querySelectorAll(sel); for (var i=0;i<l.length;i++) fn(l[i]); }
+
+function render(){
+  if (state.view === "collectie") renderCollectie();
+  else if (state.view === "bestellijst") renderBestellijst();
+  else if (state.view === "bestellingen") renderBestellingen();
+  else renderMedewerkers();
+}
+each(".tab", function(b){ b.onclick = function(){ setView(b.dataset.view); }; });
+var start = (location.hash || "").replace("#","");
+setView(["collectie","bestellijst","bestellingen","medewerkers"].indexOf(start) >= 0 ? start : "collectie");
+})();
+</script>
