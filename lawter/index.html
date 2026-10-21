@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lawter Jubileumkeuze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: single-column header, 3-up card grid for the models, no pricing anywhere */
+  /* Palette sampled straight from Lawter's own logo: pine teal #00A88F, print-black #231F20 */
+  :root {
+    --ink: #231F20;
+    --paper: #F3F6F5;
+    --paper-deep: #E6ECEA;
+    --panel: #FFFFFF;
+    --teal: #00A88F;
+    --teal-deep: #00816D;
+    --teal-ink: #003D33;
+    --forest: #15332E;
+    --line: rgba(35,31,32,0.14);
+    --muted: #686D6B;
+    --shadow: rgba(21,51,46,0.09);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #EDF2F0;
+      --paper: #0E1513;
+      --paper-deep: #16201D;
+      --panel: #182320;
+      --teal: #2BC4A6;
+      --teal-deep: #00A88F;
+      --teal-ink: #BFEEE3;
+      --forest: #2E5A49;
+      --line: rgba(237,242,240,0.14);
+      --muted: #9BA6A2;
+      --shadow: rgba(0,0,0,0.4);
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    padding-left: max(20px, env(safe-area-inset-left, 0px), calc((100% - 1040px) / 2 + 20px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px), calc((100% - 1040px) / 2 + 20px));
+    padding-block: 48px 40px;
+  }
+
+  .brandline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .brandline .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); flex: none; }
+
+  header.top { max-width: 760px; margin-bottom: 40px; }
+
+  .lawter-badge {
+    display: inline-flex; align-items: center;
+    background: #fff; border-radius: 4px;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+  }
+  .lawter-mark { height: 22px; width: auto; display: block; }
+
+  h1 {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 5.2vw, 50px);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+
+  .lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 62ch; margin: 0; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+  @media (max-width: 800px) { .cards { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: box-shadow .25s ease, border-color .25s ease, opacity .25s ease;
+    box-shadow: 0 1px 2px var(--shadow);
+    overflow: hidden;
+    min-width: 0;
+  }
+  .card.dimmed { opacity: 0.5; }
+
+  .photo-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: var(--paper-deep);
+    overflow: hidden;
+  }
+  .photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .card-inner { padding: 2px 24px 0; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+  .card-body { display: flex; flex-direction: column; gap: 6px; }
+
+  .tier-label { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal-deep); }
+  .card h2 { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 700; font-size: 23px; margin: 0; letter-spacing: -0.01em; }
+  .card p.desc { font-size: 14.5px; line-height: 1.5; color: var(--muted); margin: 0; }
+
+  .logo-note {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 2px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .logo-note svg { width: 14px; height: 14px; flex: none; color: var(--teal-deep); }
+
+  button.choose {
+    appearance: none; border: 1px solid var(--ink); background: transparent; color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: 14.5px;
+    padding: 11px 16px; border-radius: 3px; cursor: pointer;
+    transition: background .18s ease, color .18s ease;
+  }
+  button.choose:hover { background: var(--ink); color: var(--paper); }
+  button.choose:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  .card.selected { border-color: var(--teal); box-shadow: 0 2px 10px var(--shadow); }
+  .card.selected button.choose { background: var(--teal-deep); border-color: var(--teal-deep); color: #fff; }
+
+  .picker { display: none; flex-direction: column; gap: 12px; padding-top: 14px; border-top: 1px solid var(--line); animation: reveal .22s ease; }
+  .card.selected .picker { display: flex; }
+  @media (prefers-reduced-motion: reduce) { .picker { animation: none; } }
+  @keyframes reveal { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .field label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .field input[type="text"] {
+    width: 100%; font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px; padding: 9px 10px;
+    border: 1px solid var(--line); border-radius: 3px; background: var(--paper); color: var(--ink);
+  }
+  .field input[type="text"]:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; }
+
+  .sizes { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sizes button {
+    appearance: none; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; padding: 6px 10px; border-radius: 3px; cursor: pointer;
+  }
+  .sizes button:hover { border-color: var(--teal-deep); }
+  .sizes button.picked { background: var(--teal-deep); border-color: var(--teal-deep); color: #fff; }
+  .sizes button:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; }
+
+  button.confirm {
+    appearance: none; border: none; background: var(--forest); color: #fff;
+    font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: 14.5px;
+    padding: 11px 16px; border-radius: 3px; cursor: pointer;
+  }
+  button.confirm:disabled { opacity: 0.45; cursor: not-allowed; }
+  button.confirm:not(:disabled):hover { background: var(--teal-ink); }
+  button.confirm:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  .success { display: none; gap: 10px; align-items: flex-start; padding-top: 14px; border-top: 1px solid var(--line); font-size: 14.5px; line-height: 1.5; }
+  .card.confirmed .picker, .card.confirmed .choose { display: none; }
+  .card.confirmed .success { display: flex; }
+  .success .mark {
+    flex: none; width: 20px; height: 20px; border-radius: 50%; background: var(--teal-deep); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
+  }
+
+  footer.note {
+    margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="brandline"><span class="dot"></span>SocialGoodz &times; Lawter</div>
+
+<header class="top">
+  <div class="lawter-badge"><img class="lawter-mark" src="img/logo.png" alt="Lawter"></div>
+  <h1>Kies je cadeau voor het jubileum</h1>
+  <p class="lede">Lawter bestaat 30 jaar. Kies hieronder je model, geef je maat door en je logo-geschenk is geregeld &mdash; geen rondje mailen, geen lijst bijhouden op de afdeling.</p>
+</header>
+
+<section class="cards" id="cards">
+
+  <article class="card" data-name="Liner">
+    <div class="photo-wrap"><img src="img/liner.png" alt="Liner bodywarmer"></div>
+    <div class="card-inner">
+      <div class="card-body">
+        <div class="tier-label">Model A</div>
+        <h2>Liner</h2>
+        <p class="desc">Bodywarmer, lichtgewicht en met een hoge kraag. Draag 'm los of onder een jas.</p>
+      </div>
+      <div class="logo-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l6 6L20 6"/></svg>
+        Lawter-logo op de rechterborst
+      </div>
+      <button class="choose" type="button">Kies dit model</button>
+      <div class="picker">
+        <div class="field"><label for="naam-a">Jouw naam</label><input type="text" id="naam-a" placeholder="Bijv. Karima"></div>
+        <div class="field"><label>Maat</label><div class="sizes" data-sizes></div></div>
+        <button class="confirm" type="button" disabled>Bevestig keuze</button>
+      </div>
+      <div class="success"><div class="mark">&check;</div><div class="success-text"></div></div>
+    </div>
+  </article>
+
+  <article class="card" data-name="Brooker">
+    <div class="photo-wrap"><img src="img/brooker.png" alt="Brooker fleece jack"></div>
+    <div class="card-inner">
+      <div class="card-body">
+        <div class="tier-label">Model B</div>
+        <h2>Brooker</h2>
+        <p class="desc">Fleece jack met rits, warm en zacht. De meest gedragen keuze bij een jubileum.</p>
+      </div>
+      <div class="logo-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l6 6L20 6"/></svg>
+        Lawter-logo op de rechterborst
+      </div>
+      <button class="choose" type="button">Kies dit model</button>
+      <div class="picker">
+        <div class="field"><label for="naam-b">Jouw naam</label><input type="text" id="naam-b" placeholder="Bijv. Karima"></div>
+        <div class="field"><label>Maat</label><div class="sizes" data-sizes></div></div>
+        <button class="confirm" type="button" disabled>Bevestig keuze</button>
+      </div>
+      <div class="success"><div class="mark">&check;</div><div class="success-text"></div></div>
+    </div>
+  </article>
+
+  <article class="card" data-name="Stanley Discoverer">
+    <div class="photo-wrap"><img src="img/stanley.png" alt="Stanley Discoverer softshell jack"></div>
+    <div class="card-inner">
+      <div class="card-body">
+        <div class="tier-label">Model C</div>
+        <h2>Stanley Discoverer</h2>
+        <p class="desc">Softshell jack met capuchon, wind- en waterafstotend. De windstopper uit het eerste idee.</p>
+      </div>
+      <div class="logo-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l6 6L20 6"/></svg>
+        Lawter-logo op de rechterborst
+      </div>
+      <button class="choose" type="button">Kies dit model</button>
+      <div class="picker">
+        <div class="field"><label for="naam-c">Jouw naam</label><input type="text" id="naam-c" placeholder="Bijv. Karima"></div>
+        <div class="field"><label>Maat</label><div class="sizes" data-sizes></div></div>
+        <button class="confirm" type="button" disabled>Bevestig keuze</button>
+      </div>
+      <div class="success"><div class="mark">&check;</div><div class="success-text"></div></div>
+    </div>
+  </article>
+
+</section>
+
+<footer class="note">
+  <span>Geschenk van Lawter, geen kosten voor jou. Via ecowear.nl, duurzaam en fairtrade geproduceerd.</span>
+  <span>SocialGoodz, 21 oktober 2026</span>
+</footer>
+
+<script>
+  const SIZES = ['XS','S','M','L','XL','XXL'];
+
+  document.querySelectorAll('.card').forEach(card => {
+    const sizesEl = card.querySelector('[data-sizes]');
+    SIZES.forEach(s => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = s;
+      b.addEventListener('click', () => {
+        sizesEl.querySelectorAll('button').forEach(x => x.classList.remove('picked'));
+        b.classList.add('picked');
+        updateConfirm(card);
+      });
+      sizesEl.appendChild(b);
+    });
+
+    const nameInput = card.querySelector('input[type="text"]');
+    nameInput.addEventListener('input', () => updateConfirm(card));
+
+    card.querySelector('.choose').addEventListener('click', () => {
+      const isOpen = card.classList.contains('selected');
+      document.querySelectorAll('.card').forEach(c => {
+        c.classList.remove('selected');
+        c.classList.remove('dimmed');
+      });
+      if (!isOpen) {
+        card.classList.add('selected');
+        document.querySelectorAll('.card').forEach(c => { if (c !== card) c.classList.add('dimmed'); });
+      }
+    });
+
+    card.querySelector('.confirm').addEventListener('click', () => {
+      const naam = nameInput.value.trim() || 'Je collega';
+      const maat = sizesEl.querySelector('.picked')?.textContent;
+      const model = card.dataset.name;
+      card.querySelector('.success-text').textContent =
+        `Bedankt, ${naam} — je keuze (${model}, maat ${maat}) is doorgegeven. SocialGoodz neemt het van hier over.`;
+      card.classList.add('confirmed');
+    });
+  });
+
+  function updateConfirm(card) {
+    const naam = card.querySelector('input[type="text"]').value.trim();
+    const maat = card.querySelector('.sizes .picked');
+    card.querySelector('.confirm').disabled = !(naam && maat);
+  }
+</script>
+
+</body>
+</html>
