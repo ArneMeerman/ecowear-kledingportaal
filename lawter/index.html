@@ -316,13 +316,28 @@
       }
     });
 
-    card.querySelector('.confirm').addEventListener('click', () => {
+    card.querySelector('.confirm').addEventListener('click', async () => {
+      const confirmBtn = card.querySelector('.confirm');
       const naam = nameInput.value.trim() || 'Je collega';
       const maat = sizesEl.querySelector('.picked')?.textContent;
       const model = card.dataset.name;
-      card.querySelector('.success-text').textContent =
-        `Bedankt, ${naam} — je keuze (${model}, maat ${maat}) is doorgegeven. SocialGoodz neemt het van hier over.`;
-      card.classList.add('confirmed');
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = 'Versturen...';
+      try {
+        const resp = await fetch('https://arnemeerman--kledingportaal-inzendingen-web.us-east.modal.run/inzending/lawter', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ naam, model, maat }),
+        });
+        if (!resp.ok) throw new Error('status ' + resp.status);
+        card.querySelector('.success-text').textContent =
+          `Bedankt, ${naam} — je keuze (${model}, maat ${maat}) is doorgegeven. SocialGoodz neemt het van hier over.`;
+        card.classList.add('confirmed');
+      } catch (err) {
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = 'Opnieuw proberen';
+        alert('Dat ging niet goed. Check je internetverbinding en probeer het nog eens, of mail je keuze naar info@socialgoodz.nl.');
+      }
     });
   });
 
