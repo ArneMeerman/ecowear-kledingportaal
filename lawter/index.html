@@ -174,6 +174,15 @@
   .gate .melding:empty { display: none; }
   .cards[hidden] { display: none; }
 
+  details.maten { margin: 0 0 14px; font-size: 14px; }
+  details.maten summary { cursor: pointer; color: var(--teal-deep); font-weight: 500; padding: 6px 0; }
+  details.maten summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+  .maten-wrap { overflow-x: auto; margin-top: 6px; }
+  .maten table { border-collapse: collapse; font-size: 12.5px; width: 100%; }
+  .maten th, .maten td { border: 1px solid var(--line); padding: 4px 6px; text-align: center; white-space: nowrap; }
+  .maten tbody th { text-align: left; font-weight: 500; }
+  .maten-noot { font-size: 12.5px; color: var(--muted); margin: 8px 0 0; }
+
   .sizes { display: flex; flex-wrap: wrap; gap: 6px; }
   .sizes button {
     appearance: none; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
@@ -236,8 +245,9 @@
       <div class="card-body">
         <div class="tier-label">Model A</div>
         <h2>Liner</h2>
-        <p class="desc">Bodywarmer, lichtgewicht en met een hoge kraag. Draag 'm los of onder een jas.</p>
+        <p class="desc">Sherpa bodywarmer met hoge kraag. Medium fit, unisex. Draag 'm los of onder een jas.</p>
       </div>
+      <details class="maten"><summary>Maattabel en pasvorm</summary><div class="maten-wrap"><table><thead><tr><th>cm</th><th>XXS</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>3XL</th></tr></thead><tbody><tr><th>Halve borstbreedte</th><td>48</td><td>50</td><td>52</td><td>56</td><td>59</td><td>62</td><td>66</td><td>70</td></tr><tr><th>Lengte</th><td>59</td><td>62</td><td>66</td><td>70</td><td>72</td><td>74,5</td><td>76,5</td><td>79</td></tr></tbody></table></div><p class="maten-noot">Borstbreedte is plat gemeten, de omtrek is dus twee keer zoveel. Weet je het niet zeker? Meet een jas die je al hebt en leg hem ernaast.</p></details>
       <div class="logo-note">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l6 6L20 6"/></svg>
         Lawter-logo op de rechterborst
@@ -259,8 +269,9 @@
       <div class="card-body">
         <div class="tier-label">Model B</div>
         <h2>Brooker</h2>
-        <p class="desc">Fleece jack met rits, warm en zacht. De meest gedragen keuze.</p>
+        <p class="desc">Warme sherpa-jas met rits en zakken met verborgen rits. Relaxed fit, unisex: ruim en comfortabel.</p>
       </div>
+      <details class="maten"><summary>Maattabel en pasvorm</summary><div class="maten-wrap"><table><thead><tr><th>cm</th><th>XXS</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>3XL</th></tr></thead><tbody><tr><th>Halve borstbreedte</th><td>51</td><td>53</td><td>55</td><td>59</td><td>62</td><td>65</td><td>69</td><td>73</td></tr><tr><th>Lengte</th><td>61</td><td>64</td><td>68</td><td>72</td><td>74</td><td>76,5</td><td>78,5</td><td>81</td></tr><tr><th>Mouwlengte</th><td>55,5</td><td>57,5</td><td>62</td><td>64,5</td><td>66,5</td><td>67</td><td>67,5</td><td>67,5</td></tr></tbody></table></div><p class="maten-noot">Borstbreedte is plat gemeten, de omtrek is dus twee keer zoveel. Weet je het niet zeker? Meet een jas die je al hebt en leg hem ernaast.</p></details>
       <div class="logo-note">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l6 6L20 6"/></svg>
         Lawter-logo op de rechterborst
@@ -282,8 +293,9 @@
       <div class="card-body">
         <div class="tier-label">Model C</div>
         <h2>Stanley Discoverer</h2>
-        <p class="desc">Softshell jack met capuchon, wind- en waterafstotend. De windstopper uit het eerste idee.</p>
+        <p class="desc">Softshell jack met capuchon, winddicht en waterafstotend. Medium fit, mannenmodel.</p>
       </div>
+      <details class="maten"><summary>Maattabel en pasvorm</summary><div class="maten-wrap"><table><thead><tr><th>cm</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>3XL</th><th>4XL</th><th>5XL</th></tr></thead><tbody><tr><th>Halve borstbreedte</th><td>58</td><td>61</td><td>64</td><td>67</td><td>71</td><td>75</td><td>80</td><td>85</td></tr><tr><th>Lengte</th><td>70</td><td>72</td><td>74</td><td>76</td><td>78,5</td><td>81</td><td>83</td><td>84</td></tr><tr><th>Mouwlengte</th><td>65</td><td>66,5</td><td>68</td><td>69,5</td><td>71</td><td>71</td><td>71</td><td>71</td></tr></tbody></table></div><p class="maten-noot">Borstbreedte is plat gemeten, de omtrek is dus twee keer zoveel. Weet je het niet zeker? Meet een jas die je al hebt en leg hem ernaast.</p></details>
       <div class="logo-note">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l6 6L20 6"/></svg>
         Lawter-logo op de rechterborst
@@ -336,12 +348,16 @@
     knop.disabled = false;
   });
 
-  const SIZES = ['XS','S','M','L','XL','XXL'];
+  const MATEN = {
+    'Liner': ['XXS','XS','S','M','L','XL','XXL','3XL'],
+    'Brooker': ['XXS','XS','S','M','L','XL','XXL','3XL'],
+    'Stanley Discoverer': ['S','M','L','XL','XXL','3XL','4XL','5XL']
+  };
   const KLEUREN = ['Zwart','Donkergroen'];
 
   document.querySelectorAll('.card').forEach(card => {
     const sizesEl = card.querySelector('[data-sizes]');
-    SIZES.forEach(s => {
+    (MATEN[card.dataset.name] || []).forEach(s => {
       const b = document.createElement('button');
       b.type = 'button';
       b.textContent = s;
