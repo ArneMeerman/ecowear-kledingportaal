@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Lawter Jubileumkeuze</title>
+<title>Lawter Bedrijfskledij</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -165,6 +165,15 @@
   }
   .field input[type="text"]:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; }
 
+  .gate { max-width: 460px; margin: 0 0 40px; padding: 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 2px 10px var(--shadow); }
+  .gate h2 { font-size: 18px; margin: 0 0 6px; }
+  .gate p { font-size: 14.5px; color: var(--muted); margin: 0 0 14px; }
+  .gate input[type="email"] { width: 100%; font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); color: var(--ink); margin-bottom: 12px; }
+  .gate input[type="email"]:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; }
+  .gate .melding { font-size: 14px; margin-top: 12px; color: var(--ink); }
+  .gate .melding:empty { display: none; }
+  .cards[hidden] { display: none; }
+
   .sizes { display: flex; flex-wrap: wrap; gap: 6px; }
   .sizes button {
     appearance: none; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
@@ -205,11 +214,21 @@
 <header class="top">
   <div class="lawter-badge"><img class="lawter-mark" src="img/logo.png" alt="Lawter"></div>
   <p class="tagline">Better, sustainable chemistry</p>
-  <h1>Kies je cadeau voor het jubileum</h1>
-  <p class="lede">Lawter bestaat 30 jaar. Kies hieronder je model, geef je maat door en je logo-geschenk is geregeld &mdash; geen rondje mailen, geen lijst bijhouden op de afdeling.</p>
+  <h1>Kies je bedrijfskledij</h1>
+  <p class="lede">Lawter bestaat 30 jaar. Kies hieronder je model, je kleur en je maat. Je bedrijfskledij met Lawter-logo is dan geregeld &mdash; geen rondje mailen, geen lijst bijhouden op de afdeling.</p>
 </header>
 
-<section class="cards" id="cards">
+<section class="gate" id="gate">
+  <h2>Eerst even inloggen</h2>
+  <p>Vul je zakelijke e-mailadres in. Je kunt maar &eacute;&eacute;n keer een keuze doorgeven.</p>
+  <form id="gate-form">
+    <div class="field"><label for="gate-email">E-mailadres</label><input type="email" id="gate-email" autocomplete="email" placeholder="naam@lawter.com" required></div>
+    <button class="confirm" type="submit" id="gate-knop">Verder</button>
+  </form>
+  <div class="melding" id="gate-melding" role="status"></div>
+</section>
+
+<section class="cards" id="cards" hidden>
 
   <article class="card" data-name="Liner">
     <div class="photo-wrap"><img src="img/liner.png" alt="Liner bodywarmer"></div>
@@ -225,7 +244,8 @@
       </div>
       <button class="choose" type="button">Kies dit model</button>
       <div class="picker">
-        <div class="field"><label for="naam-a">Jouw naam</label><input type="text" id="naam-a" placeholder="Bijv. Karima"></div>
+        <div class="field"><label for="naam-a">Voor- en achternaam</label><input type="text" id="naam-a" placeholder="Bijv. Karima Tekari"></div>
+        <div class="field"><label>Kleur</label><div class="sizes" data-kleuren></div></div>
         <div class="field"><label>Maat</label><div class="sizes" data-sizes></div></div>
         <button class="confirm" type="button" disabled>Bevestig keuze</button>
       </div>
@@ -239,7 +259,7 @@
       <div class="card-body">
         <div class="tier-label">Model B</div>
         <h2>Brooker</h2>
-        <p class="desc">Fleece jack met rits, warm en zacht. De meest gedragen keuze bij een jubileum.</p>
+        <p class="desc">Fleece jack met rits, warm en zacht. De meest gedragen keuze.</p>
       </div>
       <div class="logo-note">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l6 6L20 6"/></svg>
@@ -247,7 +267,8 @@
       </div>
       <button class="choose" type="button">Kies dit model</button>
       <div class="picker">
-        <div class="field"><label for="naam-b">Jouw naam</label><input type="text" id="naam-b" placeholder="Bijv. Karima"></div>
+        <div class="field"><label for="naam-b">Voor- en achternaam</label><input type="text" id="naam-b" placeholder="Bijv. Karima Tekari"></div>
+        <div class="field"><label>Kleur</label><div class="sizes" data-kleuren></div></div>
         <div class="field"><label>Maat</label><div class="sizes" data-sizes></div></div>
         <button class="confirm" type="button" disabled>Bevestig keuze</button>
       </div>
@@ -269,7 +290,8 @@
       </div>
       <button class="choose" type="button">Kies dit model</button>
       <div class="picker">
-        <div class="field"><label for="naam-c">Jouw naam</label><input type="text" id="naam-c" placeholder="Bijv. Karima"></div>
+        <div class="field"><label for="naam-c">Voor- en achternaam</label><input type="text" id="naam-c" placeholder="Bijv. Karima Tekari"></div>
+        <div class="field"><label>Kleur</label><div class="sizes" data-kleuren></div></div>
         <div class="field"><label>Maat</label><div class="sizes" data-sizes></div></div>
         <button class="confirm" type="button" disabled>Bevestig keuze</button>
       </div>
@@ -280,12 +302,42 @@
 </section>
 
 <footer class="note">
-  <span>Geschenk van Lawter, geen kosten voor jou. Via ecowear.nl, duurzaam en fairtrade geproduceerd.</span>
+  <span>Bedrijfskledij van Lawter, geen kosten voor jou. Via ecowear.nl, duurzaam en fairtrade geproduceerd.</span>
   <span>SocialGoodz, 21 oktober 2026</span>
 </footer>
 
 <script>
+  const EP = 'https://arnemeerman--kledingportaal-inzendingen-web.us-east.modal.run';
+  let MIJN_EMAIL = '';
+  document.getElementById('gate-form').addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const knop = document.getElementById('gate-knop');
+    const meld = document.getElementById('gate-melding');
+    const email = document.getElementById('gate-email').value.trim().toLowerCase();
+    knop.disabled = true; meld.textContent = '';
+    try {
+      const r = await fetch(EP + '/controle/lawter', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }) });
+      if (!r.ok) throw new Error('status ' + r.status);
+      const { status } = await r.json();
+      if (status === 'nieuw') {
+        MIJN_EMAIL = email;
+        document.getElementById('gate').hidden = true;
+        document.getElementById('cards').hidden = false;
+      } else if (status === 'al_besteld') {
+        meld.textContent = 'Met dit e-mailadres is al een keuze doorgegeven. Een tweede keer kan niet. Klopt dat niet? Mail info@socialgoodz.nl.';
+      } else if (status === 'niet_toegestaan') {
+        meld.textContent = 'Dit e-mailadres staat niet op de lijst. Probeer je zakelijke adres, of mail info@socialgoodz.nl.';
+      } else {
+        meld.textContent = 'Dat is geen geldig e-mailadres.';
+      }
+    } catch (err) {
+      meld.textContent = 'Dat ging niet goed. Check je internetverbinding en probeer het nog eens.';
+    }
+    knop.disabled = false;
+  });
+
   const SIZES = ['XS','S','M','L','XL','XXL'];
+  const KLEUREN = ['Zwart','Donkergroen'];
 
   document.querySelectorAll('.card').forEach(card => {
     const sizesEl = card.querySelector('[data-sizes]');
@@ -299,6 +351,19 @@
         updateConfirm(card);
       });
       sizesEl.appendChild(b);
+    });
+
+    const kleurEl = card.querySelector('[data-kleuren]');
+    KLEUREN.forEach(k => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = k;
+      b.addEventListener('click', () => {
+        kleurEl.querySelectorAll('button').forEach(x => x.classList.remove('picked'));
+        b.classList.add('picked');
+        updateConfirm(card);
+      });
+      kleurEl.appendChild(b);
     });
 
     const nameInput = card.querySelector('input[type="text"]');
@@ -320,6 +385,7 @@
       const confirmBtn = card.querySelector('.confirm');
       const naam = nameInput.value.trim() || 'Je collega';
       const maat = sizesEl.querySelector('.picked')?.textContent;
+      const kleur = kleurEl.querySelector('.picked')?.textContent;
       const model = card.dataset.name;
       confirmBtn.disabled = true;
       confirmBtn.textContent = 'Versturen...';
@@ -327,11 +393,17 @@
         const resp = await fetch('https://arnemeerman--kledingportaal-inzendingen-web.us-east.modal.run/inzending/lawter', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ naam, model, maat }),
+          body: JSON.stringify({ naam, email: MIJN_EMAIL, model, kleur, maat }),
         });
+        if (resp.status === 409) {
+          alert('Met dit e-mailadres is al een keuze doorgegeven. Een tweede keer kan niet.');
+          confirmBtn.textContent = 'Al besteld';
+          return;
+        }
         if (!resp.ok) throw new Error('status ' + resp.status);
+        document.querySelectorAll('.card').forEach(c => { if (c !== card) c.classList.add('dimmed'); c.querySelector('.choose').disabled = true; });
         card.querySelector('.success-text').textContent =
-          `Bedankt, ${naam} — je keuze (${model}, maat ${maat}) is doorgegeven. SocialGoodz neemt het van hier over.`;
+          `Bedankt, ${naam} — je keuze (${model}, ${kleur.toLowerCase()}, maat ${maat}) is doorgegeven. SocialGoodz neemt het van hier over.`;
         card.classList.add('confirmed');
       } catch (err) {
         confirmBtn.disabled = false;
@@ -344,7 +416,8 @@
   function updateConfirm(card) {
     const naam = card.querySelector('input[type="text"]').value.trim();
     const maat = card.querySelector('.sizes .picked');
-    card.querySelector('.confirm').disabled = !(naam && maat);
+    const kleur = card.querySelector('[data-kleuren] .picked');
+    card.querySelector('.confirm').disabled = !(naam && maat && kleur);
   }
 </script>
 
