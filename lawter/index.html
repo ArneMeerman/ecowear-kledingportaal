@@ -214,8 +214,8 @@
 <header class="top">
   <div class="lawter-badge"><img class="lawter-mark" src="img/logo.png" alt="Lawter"></div>
   <p class="tagline">Better, sustainable chemistry</p>
-  <h1>Kies je bedrijfskledij</h1>
-  <p class="lede">Lawter bestaat 30 jaar. Kies hieronder je model, je kleur en je maat. Je bedrijfskledij met Lawter-logo is dan geregeld &mdash; geen rondje mailen, geen lijst bijhouden op de afdeling.</p>
+  <h1>Lawter wordt 30! Kies jouw nieuwe bedrijfskledij</h1>
+  <p class="lede">Dertig jaar Lawter vieren we met iets moois om te dragen. Kies je favoriete model, je kleur en je maat, en je krijgt het met het Lawter-logo erop. Veel plezier ermee!</p>
 </header>
 
 <section class="gate" id="gate">
@@ -403,7 +403,7 @@
         if (!resp.ok) throw new Error('status ' + resp.status);
         document.querySelectorAll('.card').forEach(c => { if (c !== card) c.classList.add('dimmed'); c.querySelector('.choose').disabled = true; });
         card.querySelector('.success-text').textContent =
-          `Bedankt, ${naam} — je keuze (${model}, ${kleur.toLowerCase()}, maat ${maat}) is doorgegeven. SocialGoodz neemt het van hier over.`;
+          `Bedankt, ${naam}! Je keuze (${model}, ${kleur.toLowerCase()}, maat ${maat}) is doorgegeven. SocialGoodz neemt het van hier over.`;
         card.classList.add('confirmed');
       } catch (err) {
         confirmBtn.disabled = false;
