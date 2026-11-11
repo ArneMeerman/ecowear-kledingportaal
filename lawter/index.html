@@ -96,7 +96,8 @@
   .lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 62ch; margin: 0; }
   .lede strong { color: var(--ink); font-weight: 600; }
 
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; align-items: start; }
+  .card h2 small { font-size: 13px; font-weight: 400; color: var(--muted); }
   @media (max-width: 800px) { .cards { grid-template-columns: 1fr; } }
 
   .card {
@@ -300,7 +301,7 @@
     <div class="card-inner">
       <div class="card-body">
         <div class="tier-label">Model C</div>
-        <h2>Stanley Discoverer</h2>
+        <h2>Stanley Discoverer <small>(heren)</small></h2>
         <p class="desc">Softshell jack met capuchon, winddicht en waterafstotend. Medium fit, mannenmodel.</p>
       </div>
       <details class="maten"><summary>Maattabel en pasvorm</summary><div class="maten-wrap"><table><thead><tr><th>cm</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>3XL</th><th>4XL</th><th>5XL</th></tr></thead><tbody><tr><th>Halve borstbreedte</th><td>58</td><td>61</td><td>64</td><td>67</td><td>71</td><td>75</td><td>80</td><td>85</td></tr><tr><th>Lengte</th><td>70</td><td>72</td><td>74</td><td>76</td><td>78,5</td><td>81</td><td>83</td><td>84</td></tr><tr><th>Mouwlengte</th><td>65</td><td>66,5</td><td>68</td><td>69,5</td><td>71</td><td>71</td><td>71</td><td>71</td></tr></tbody></table></div><p class="maten-noot">Borstbreedte is plat gemeten, de omtrek is dus twee keer zoveel. Weet je het niet zeker? Meet een jas die je al hebt en leg hem ernaast.</p></details>
@@ -311,6 +312,30 @@
       <button class="choose" type="button">Kies dit model</button>
       <div class="picker">
         <div class="field"><label for="naam-c">Voor- en achternaam</label><input type="text" id="naam-c" placeholder="Bijv. Karima Tekari"></div>
+        <div class="field"><label>Kleur</label><div class="sizes" data-kleuren></div></div>
+        <div class="field"><label>Maat</label><div class="sizes" data-sizes></div></div>
+        <button class="confirm" type="button" disabled>Bevestig keuze</button>
+      </div>
+      <div class="success"><div class="mark">&check;</div><div class="success-text"></div></div>
+    </div>
+  </article>
+
+  <article class="card" data-name="Stella Discoverer">
+    <div class="photo-wrap"><img src="img/stella.jpg" alt="Stella Discoverer softshell jack"></div>
+    <div class="card-inner">
+      <div class="card-body">
+        <div class="tier-label">Model D</div>
+        <h2>Stella Discoverer <small>(dames)</small></h2>
+        <p class="desc">Softshell jack met capuchon, winddicht en waterafstotend. Medium fit, damesmodel.</p>
+      </div>
+      <details class="maten"><summary>Maattabel en pasvorm</summary><div class="maten-wrap"><table><thead><tr><th>cm</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>3XL</th></tr></thead><tbody><tr><th>Halve borstbreedte</th><td>47</td><td>50</td><td>53</td><td>56</td><td>59</td><td>63</td><td>66</td></tr><tr><th>Lengte</th><td>61</td><td>63</td><td>65</td><td>67</td><td>69</td><td>71</td><td>72</td></tr><tr><th>Mouwlengte</th><td>59,5</td><td>61</td><td>62,5</td><td>64</td><td>65,5</td><td>65,5</td><td>65,5</td></tr></tbody></table></div><p class="maten-noot">Borstbreedte is plat gemeten, de omtrek is dus twee keer zoveel. Weet je het niet zeker? Meet een jas die je al hebt en leg hem ernaast.</p></details>
+      <div class="logo-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l6 6L20 6"/></svg>
+        Lawter-logo op de rechterborst
+      </div>
+      <button class="choose" type="button">Kies dit model</button>
+      <div class="picker">
+        <div class="field"><label for="naam-d">Voor- en achternaam</label><input type="text" id="naam-d" placeholder="Bijv. Karima Tekari"></div>
         <div class="field"><label>Kleur</label><div class="sizes" data-kleuren></div></div>
         <div class="field"><label>Maat</label><div class="sizes" data-sizes></div></div>
         <button class="confirm" type="button" disabled>Bevestig keuze</button>
@@ -359,7 +384,8 @@
   const MATEN = {
     'Liner': ['XXS','XS','S','M','L','XL','XXL','3XL'],
     'Brooker': ['XXS','XS','S','M','L','XL','XXL','3XL'],
-    'Stanley Discoverer': ['S','M','L','XL','XXL','3XL','4XL','5XL']
+    'Stanley Discoverer': ['S','M','L','XL','XXL','3XL','4XL','5XL'],
+    'Stella Discoverer': ['XS','S','M','L','XL','XXL','3XL']
   };
   const KLEUREN = ['Zwart','Donkergroen'];
 
