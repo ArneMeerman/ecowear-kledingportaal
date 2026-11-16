@@ -69,11 +69,12 @@
 
   .lawter-badge {
     display: inline-flex; align-items: center;
-    background: #fff; border-radius: 4px;
-    padding: 10px 16px;
     margin-bottom: 14px;
   }
-  .lawter-mark { height: 22px; width: auto; display: block; }
+  @media (prefers-color-scheme: dark) {
+    .lawter-badge { background: #fff; border-radius: 4px; padding: 10px 16px; }
+  }
+  .lawter-mark { height: 30px; width: auto; display: block; }
 
   .tagline {
     font-family: 'IBM Plex Sans', sans-serif;
@@ -117,12 +118,21 @@
   .card.dimmed { opacity: 0.5; }
 
   .photo-wrap {
+    position: relative;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 5;
     background: var(--paper-deep);
     overflow: hidden;
+    cursor: pointer;
   }
-  .photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .photo-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: opacity .3s ease; }
+  .photo-wrap .p2 { opacity: 0; }
+  .photo-wrap.hover .p2 { opacity: 1; }
+  .zoom { position: absolute; right: 10px; bottom: 10px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255,255,255,.92); color: #231F20; cursor: zoom-in; display: grid; place-items: center; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+  .zoom:hover { background: #fff; }
+  .zoom:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+  .zoom svg { width: 18px; height: 18px; }
+  .card-body { cursor: pointer; }
 
   .card-inner { padding: 2px 24px 0; display: flex; flex-direction: column; gap: 16px; flex: 1; }
   .card-body { display: flex; flex-direction: column; gap: 6px; }
@@ -192,11 +202,22 @@
   .maten tbody th { text-align: left; font-weight: 500; }
   .maten-noot { font-size: 12.5px; color: var(--muted); margin: 8px 0 0; }
 
-  .thumbs { display: flex; gap: 8px; padding: 8px 12px 0; }
-  .thumbs button { padding: 0; width: 64px; height: 64px; border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: none; }
+  .viewkleur { display: flex; gap: 6px; padding: 10px 12px 0; }
+  .viewkleur button { font: inherit; font-size: 12px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: none; color: var(--ink); cursor: pointer; }
+  .viewkleur button.on { background: var(--teal-deep); border-color: var(--teal-deep); color: #fff; }
+  .viewkleur button:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; }
+  .thumbs { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 12px 0; }
+  .thumbs button { padding: 0; width: 44px; height: 55px; border: 2px solid transparent; border-radius: 6px; overflow: hidden; cursor: pointer; background: var(--paper-deep); }
   .thumbs button img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
   .thumbs button.on { border-color: var(--teal-deep); }
   .thumbs button:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; }
+  .lb { position: fixed; inset: 0; z-index: 100; background: rgba(10,15,14,.92); display: none; align-items: center; justify-content: center; flex-direction: column; gap: 12px; padding: 16px; }
+  .lb.open { display: flex; }
+  .lb img { max-width: min(92vw, 900px); max-height: 80vh; object-fit: contain; border-radius: 4px; background: #e9eceb; }
+  .lb-bar { color: #fff; font-size: 14px; display: flex; gap: 14px; align-items: center; }
+  .lb button { font: inherit; background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+  .lb button:hover { background: rgba(255,255,255,.28); }
+  .lb .lb-x { position: absolute; top: 14px; right: 14px; }
   .sizes { display: flex; flex-wrap: wrap; gap: 6px; }
   .sizes button {
     appearance: none; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
@@ -254,8 +275,9 @@
 <section class="cards" id="cards" hidden>
 
   <article class="card" data-name="Liner">
-    <div class="photo-wrap"><img src="img/liner-zwart.jpg" alt="Liner bodywarmer" data-foto="liner"></div>
-    <div class="thumbs"><button type="button" data-kleur="Zwart" class="on"><img src="img/liner-zwart.jpg" alt="Zwart"></button><button type="button" data-kleur="French navy"><img src="img/liner-navy.jpg" alt="French navy"></button></div>
+    <div class="photo-wrap" data-foto="liner"><img class="p1" src="img/liner/zwart-1.jpg" alt="Liner bodywarmer"><img class="p2" alt="" aria-hidden="true"><button class="zoom" type="button" aria-label="Vergroot de foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button></div>
+    <div class="viewkleur"><button type="button" data-kleur="Zwart" class="on">Zwart</button><button type="button" data-kleur="French navy">French navy</button></div>
+    <div class="thumbs"></div>
     <div class="card-inner">
       <div class="card-body">
         <div class="tier-label">Model A</div>
@@ -279,8 +301,9 @@
   </article>
 
   <article class="card" data-name="Brooker">
-    <div class="photo-wrap"><img src="img/brooker-zwart.jpg" alt="Brooker fleece jack" data-foto="brooker"></div>
-    <div class="thumbs"><button type="button" data-kleur="Zwart" class="on"><img src="img/brooker-zwart.jpg" alt="Zwart"></button><button type="button" data-kleur="French navy"><img src="img/brooker-navy.jpg" alt="French navy"></button></div>
+    <div class="photo-wrap" data-foto="brooker"><img class="p1" src="img/brooker/zwart-1.jpg" alt="Brooker fleece jack"><img class="p2" alt="" aria-hidden="true"><button class="zoom" type="button" aria-label="Vergroot de foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button></div>
+    <div class="viewkleur"><button type="button" data-kleur="Zwart" class="on">Zwart</button><button type="button" data-kleur="French navy">French navy</button></div>
+    <div class="thumbs"></div>
     <div class="card-inner">
       <div class="card-body">
         <div class="tier-label">Model B</div>
@@ -304,8 +327,9 @@
   </article>
 
   <article class="card" data-name="Stanley Discoverer">
-    <div class="photo-wrap"><img src="img/stanley-zwart.jpg" alt="Stanley Discoverer softshell jack" data-foto="stanley"></div>
-    <div class="thumbs"><button type="button" data-kleur="Zwart" class="on"><img src="img/stanley-zwart.jpg" alt="Zwart"></button><button type="button" data-kleur="French navy"><img src="img/stanley-navy.jpg" alt="French navy"></button></div>
+    <div class="photo-wrap" data-foto="stanley"><img class="p1" src="img/stanley/zwart-1.jpg" alt="Stanley Discoverer softshell jack"><img class="p2" alt="" aria-hidden="true"><button class="zoom" type="button" aria-label="Vergroot de foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button></div>
+    <div class="viewkleur"><button type="button" data-kleur="Zwart" class="on">Zwart</button><button type="button" data-kleur="French navy">French navy</button></div>
+    <div class="thumbs"></div>
     <div class="card-inner">
       <div class="card-body">
         <div class="tier-label">Model C</div>
@@ -329,8 +353,9 @@
   </article>
 
   <article class="card" data-name="Stella Discoverer">
-    <div class="photo-wrap"><img src="img/stella-zwart.jpg" alt="Stella Discoverer softshell jack" data-foto="stella"></div>
-    <div class="thumbs"><button type="button" data-kleur="Zwart" class="on"><img src="img/stella-zwart.jpg" alt="Zwart"></button><button type="button" data-kleur="French navy"><img src="img/stella-navy.jpg" alt="French navy"></button></div>
+    <div class="photo-wrap" data-foto="stella"><img class="p1" src="img/stella/zwart-1.jpg" alt="Stella Discoverer softshell jack"><img class="p2" alt="" aria-hidden="true"><button class="zoom" type="button" aria-label="Vergroot de foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button></div>
+    <div class="viewkleur"><button type="button" data-kleur="Zwart" class="on">Zwart</button><button type="button" data-kleur="French navy">French navy</button></div>
+    <div class="thumbs"></div>
     <div class="card-inner">
       <div class="card-body">
         <div class="tier-label">Model D</div>
@@ -397,6 +422,34 @@
     'Stella Discoverer': ['XS','S','M','L','XL','XXL','3XL']
   };
   const KLEUREN = ['Zwart','French navy'];
+  const FOTO_N = 6;
+  function selecteer(card) {
+    if (document.querySelector('.card.confirmed')) return;
+    if (!card.classList.contains('selected')) card.querySelector('.choose').click();
+  }
+  const lb = document.createElement('div');
+  lb.className = 'lb';
+  lb.innerHTML = '<button class="lb-x" type="button">Sluiten</button><img alt=""><div class="lb-bar"><button class="lb-prev" type="button">&larr; Vorige</button><span class="lb-n"></span><button class="lb-next" type="button">Volgende &rarr;</button></div>';
+  document.body.appendChild(lb);
+  let lbCard = null;
+  function lbToon() {
+    const v = lbCard._view;
+    lb.querySelector('img').src = 'img/' + lbCard._slug + '/' + v.kl + '-' + (v.i + 1) + '.jpg';
+    lb.querySelector('.lb-n').textContent = (v.kl === 'navy' ? 'French navy' : 'Zwart') + ', foto ' + (v.i + 1) + ' van ' + FOTO_N;
+  }
+  function lbStap(d) { const v = lbCard._view; lbCard._toon(null, (v.i + d + FOTO_N) % FOTO_N); lbToon(); }
+  function openLb(card) { lbCard = card; lbToon(); lb.classList.add('open'); lb.querySelector('.lb-x').focus(); }
+  function sluitLb() { lb.classList.remove('open'); }
+  lb.querySelector('.lb-x').addEventListener('click', sluitLb);
+  lb.querySelector('.lb-prev').addEventListener('click', () => lbStap(-1));
+  lb.querySelector('.lb-next').addEventListener('click', () => lbStap(1));
+  lb.addEventListener('click', e => { if (e.target === lb) sluitLb(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') sluitLb();
+    if (e.key === 'ArrowLeft') lbStap(-1);
+    if (e.key === 'ArrowRight') lbStap(1);
+  });
 
   document.querySelectorAll('.card').forEach(card => {
     const sizesEl = card.querySelector('[data-sizes]');
@@ -413,13 +466,46 @@
     });
 
 
-    const foto = card.querySelector('[data-foto]');
-    const toonFoto = (kl) => {
-      const slug = foto.dataset.foto;
-      foto.src = 'img/' + slug + (kl === 'French navy' ? '-navy' : '-zwart') + '.jpg';
-      card.querySelectorAll('.thumbs button').forEach(t => t.classList.toggle('on', t.dataset.kleur === kl));
+    const wrap = card.querySelector('.photo-wrap');
+    const slug = wrap.dataset.foto;
+    const p1 = wrap.querySelector('.p1'), p2 = wrap.querySelector('.p2');
+    const thumbsEl = card.querySelector('.thumbs');
+    const view = { kl: 'zwart', i: 0 };
+    card._view = view; card._slug = slug;
+    const pad = (k, i) => 'img/' + slug + '/' + k + '-' + (i + 1) + '.jpg';
+    const toonFoto = (kleurNaam, i) => {
+      if (kleurNaam) view.kl = kleurNaam === 'French navy' ? 'navy' : 'zwart';
+      if (typeof i === 'number') view.i = i;
+      p1.src = pad(view.kl, view.i);
+      p2.src = pad(view.kl, (view.i + 1) % FOTO_N);
+      card.querySelectorAll('.viewkleur button').forEach(t => t.classList.toggle('on', (t.dataset.kleur === 'French navy') === (view.kl === 'navy')));
+      thumbsEl.innerHTML = '';
+      for (let n = 0; n < FOTO_N; n++) {
+        const t = document.createElement('button');
+        t.type = 'button';
+        t.setAttribute('aria-label', 'Foto ' + (n + 1));
+        t.classList.toggle('on', n === view.i);
+        t.innerHTML = '<img loading="lazy" alt="" src="img/' + slug + '/t-' + view.kl + '-' + (n + 1) + '.jpg">';
+        t.addEventListener('click', () => toonFoto(null, n));
+        thumbsEl.appendChild(t);
+      }
     };
-    card.querySelectorAll('.thumbs button').forEach(t => t.addEventListener('click', () => toonFoto(t.dataset.kleur)));
+    card._toon = toonFoto;
+    toonFoto('Zwart', 0);
+    if (window.matchMedia && matchMedia('(hover: hover)').matches) {
+      wrap.addEventListener('mouseenter', () => wrap.classList.add('hover'));
+      wrap.addEventListener('mouseleave', () => wrap.classList.remove('hover'));
+    }
+    card.querySelector('.zoom').addEventListener('click', e => { e.stopPropagation(); openLb(card); });
+    card.querySelectorAll('.viewkleur button').forEach(t => t.addEventListener('click', () => {
+      selecteer(card);
+      const knop = [...card.querySelectorAll('[data-kleuren] button')].find(b => b.textContent === t.dataset.kleur);
+      if (knop) knop.click(); else toonFoto(t.dataset.kleur);
+    }));
+    card.addEventListener('click', e => {
+      if (e.target.closest('button, input, details, summary, label, a, .maten')) return;
+      selecteer(card);
+    });
 
     const kleurEl = card.querySelector('[data-kleuren]');
     KLEUREN.forEach(k => {
