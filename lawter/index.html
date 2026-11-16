@@ -192,6 +192,11 @@
   .maten tbody th { text-align: left; font-weight: 500; }
   .maten-noot { font-size: 12.5px; color: var(--muted); margin: 8px 0 0; }
 
+  .thumbs { display: flex; gap: 8px; padding: 8px 12px 0; }
+  .thumbs button { padding: 0; width: 64px; height: 64px; border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; background: none; }
+  .thumbs button img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .thumbs button.on { border-color: var(--teal-deep); }
+  .thumbs button:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; }
   .sizes { display: flex; flex-wrap: wrap; gap: 6px; }
   .sizes button {
     appearance: none; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
@@ -249,7 +254,8 @@
 <section class="cards" id="cards" hidden>
 
   <article class="card" data-name="Liner">
-    <div class="photo-wrap"><img src="img/liner.png" alt="Liner bodywarmer"></div>
+    <div class="photo-wrap"><img src="img/liner-zwart.jpg" alt="Liner bodywarmer" data-foto="liner"></div>
+    <div class="thumbs"><button type="button" data-kleur="Zwart" class="on"><img src="img/liner-zwart.jpg" alt="Zwart"></button><button type="button" data-kleur="French navy"><img src="img/liner-navy.jpg" alt="French navy"></button></div>
     <div class="card-inner">
       <div class="card-body">
         <div class="tier-label">Model A</div>
@@ -273,7 +279,8 @@
   </article>
 
   <article class="card" data-name="Brooker">
-    <div class="photo-wrap"><img src="img/brooker.png" alt="Brooker fleece jack"></div>
+    <div class="photo-wrap"><img src="img/brooker-zwart.jpg" alt="Brooker fleece jack" data-foto="brooker"></div>
+    <div class="thumbs"><button type="button" data-kleur="Zwart" class="on"><img src="img/brooker-zwart.jpg" alt="Zwart"></button><button type="button" data-kleur="French navy"><img src="img/brooker-navy.jpg" alt="French navy"></button></div>
     <div class="card-inner">
       <div class="card-body">
         <div class="tier-label">Model B</div>
@@ -297,7 +304,8 @@
   </article>
 
   <article class="card" data-name="Stanley Discoverer">
-    <div class="photo-wrap"><img src="img/stanley.png" alt="Stanley Discoverer softshell jack"></div>
+    <div class="photo-wrap"><img src="img/stanley-zwart.jpg" alt="Stanley Discoverer softshell jack" data-foto="stanley"></div>
+    <div class="thumbs"><button type="button" data-kleur="Zwart" class="on"><img src="img/stanley-zwart.jpg" alt="Zwart"></button><button type="button" data-kleur="French navy"><img src="img/stanley-navy.jpg" alt="French navy"></button></div>
     <div class="card-inner">
       <div class="card-body">
         <div class="tier-label">Model C</div>
@@ -321,7 +329,8 @@
   </article>
 
   <article class="card" data-name="Stella Discoverer">
-    <div class="photo-wrap"><img src="img/stella.jpg" alt="Stella Discoverer softshell jack"></div>
+    <div class="photo-wrap"><img src="img/stella-zwart.jpg" alt="Stella Discoverer softshell jack" data-foto="stella"></div>
+    <div class="thumbs"><button type="button" data-kleur="Zwart" class="on"><img src="img/stella-zwart.jpg" alt="Zwart"></button><button type="button" data-kleur="French navy"><img src="img/stella-navy.jpg" alt="French navy"></button></div>
     <div class="card-inner">
       <div class="card-body">
         <div class="tier-label">Model D</div>
@@ -403,6 +412,15 @@
       sizesEl.appendChild(b);
     });
 
+
+    const foto = card.querySelector('[data-foto]');
+    const toonFoto = (kl) => {
+      const slug = foto.dataset.foto;
+      foto.src = 'img/' + slug + (kl === 'French navy' ? '-navy' : '-zwart') + '.jpg';
+      card.querySelectorAll('.thumbs button').forEach(t => t.classList.toggle('on', t.dataset.kleur === kl));
+    };
+    card.querySelectorAll('.thumbs button').forEach(t => t.addEventListener('click', () => toonFoto(t.dataset.kleur)));
+
     const kleurEl = card.querySelector('[data-kleuren]');
     KLEUREN.forEach(k => {
       const b = document.createElement('button');
@@ -411,6 +429,7 @@
       b.addEventListener('click', () => {
         kleurEl.querySelectorAll('button').forEach(x => x.classList.remove('picked'));
         b.classList.add('picked');
+        toonFoto(k);
         updateConfirm(card);
       });
       kleurEl.appendChild(b);
